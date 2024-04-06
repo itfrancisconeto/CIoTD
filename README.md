@@ -9,7 +9,7 @@ desses dispositivos e utilizar em suas aplicações.
 
 ## 🚀 Começando
 
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
+Essas instruções permitirão que você obtenha uma cópia do projeto na sua máquina local para fins de desenvolvimento e teste.
 
 Disponibilizei o projeto de duas formas:
 
@@ -402,6 +402,8 @@ www-authenticate: Bearer
 Implementei na solução um projeto com uma classe dedicada para testes unitários dos endpoints da API.
 
 Utilizei de forma bem simples ASP.NET Core MVC Testing em conjunto com XUnit.
+
+![TestesUnitarios](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_CasosDeTeste.png)
 
 ## 🖇️ Sugestões para melhorias futuras desta API
 
