@@ -48,7 +48,9 @@ No texto de descrição deste desafio foi disponibilizado um anexo de documenta�
 A utilização desse padrão torna a documentação da API legível tanto por seres humanos quanto por máquinas.
 
 Dessa forma é possível salvar a especificação em arquivos JSON ou YAML e importá-lo em uma ferramenta de code generator para obter
-o código fonte de maneira automática. O problema dessa abordagem é que o código fonte gerado automáticamente pode conter funcionalidades
+o código fonte de maneira automática. 
+
+O problema dessa abordagem é que o código fonte gerado automáticamente pode conter funcionalidades
 imprecisas e que nem sempre estarão de acordo com as boas práticas da programação.
 
 Diante do exposto, optei construir a API do zero e apenas me basear na documentação disponibilizada para entender as funcionalidades necessárias.
@@ -155,7 +157,7 @@ Considerei os seguintes códigos de status nesse endpoint:
 - Status404NotFound para dispositivo não encontrado
 - Status500InternalServerError para o caso de ocorrer um erro interno no servidor
 
-Neste exemplo listei a resposta para o dispositivo id "fa421bbc-e19c-418c-a9db-429584abf96d" removido com sucesso.
+Neste exemplo listei a resposta para o dispositivo id "23912437-e1b2-4634-92a0-a36036a9b48b" removido com sucesso.
 
 ![CIoTD_DeleteSuccess](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_DeleteSuccess.png)
 
