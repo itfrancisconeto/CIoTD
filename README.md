@@ -17,17 +17,17 @@ Disponibilizei o projeto de duas formas:
 
 - Se o seu objetivo for apenas utilizar esta API, poderá fazer isso através de uma imagem Docker que disponibilizei em:
 
-https://hub.docker.com/r/itfrancisconeto/ciotd/tags
+**https://hub.docker.com/r/itfrancisconeto/ciotd/tags**
 
 - Para utilizar essa imagem instale o Docker em seu Sistema Operacional e, através de um Terminal, execute o seguinte comando:
 
-docker run -p 8000:80  itfrancisconeto/ciotd:latest
+**docker run -p 8000:80  itfrancisconeto/ciotd:latest**
 
-Este comando irá baixar a imagem e executar o container localmente em sua máquina
+Este comando irá baixar a imagem e executar o container localmente em sua máquina.
 
 - Com o container em execução, abra o navegador e digite o seguinte endereço:
 
-http://localhost:8000/swagger/index.html
+**http://localhost:8000/swagger/index.html**
 
 # Github
 
@@ -37,7 +37,7 @@ Uma forma de fazer isso é criar e acessar uma pasta na sua máquina local.
 
 Depois basta digitar o seguinte comando:
 
-git clone https://github.com/itfrancisconeto/CIoTD.git .
+**git clone https://github.com/itfrancisconeto/CIoTD.git .**
 
 Lembre-se de ter instalado o Git em seu Sistema Operacional.
 
@@ -53,7 +53,7 @@ imprecisas e que nem sempre estarão de acordo com as boas práticas da programa
 
 Diante do exposto, optei construir a API do zero e apenas me basear na documentação disponibilizada para entender as funcionalidades necessárias.
 
-# Arquitetura
+# 📐️ Arquitetura
 
 Após a leitura da documentação e entendimento das regras de negócio, meu primeiro passo foi definir qual seria a arquitetura da API.
 
@@ -94,87 +94,9 @@ Considerei os seguintes códigos de status nesse endpoint:
 - Status401Unauthorized para tentativa de acesso não autorizado
 - Status500InternalServerError para o caso de ocorrer um erro interno no servidor
 
-Neste exemplo listei a resposta para três dispositivos cadastrados com suas respectivas informações.
+Neste exemplo listei a resposta para um dispositivo cadastrado com suas respectivas informações.
 
-[
-  {
-    "identifier": "88afc829-777e-4331-b961-c5d517acf5dc",
-    "description": "string",
-    "manufacturer": "PredictWeater",
-    "url": "string",
-    "commands": [
-      {
-        "comand": "get_rainfall_intensity",
-        "parameters": [
-          {
-            "name": "string",
-            "description": "string"
-          }
-        ]
-      }
-    ],
-    "rainFallIntensities": [
-      {
-        "dateTime": "2024-04-04T19:22:08.224Z",
-        "volumetry": 0
-      },
-      {
-        "dateTime": "2024-04-04T21:14:06.9265477-03:00",
-        "volumetry": 310.53
-      },
-      {
-        "dateTime": "2024-04-05T18:44:46.4492289-03:00",
-        "volumetry": 758.74
-      }
-    ]
-  },
-  {
-    "identifier": "f0ffb744-39ff-4e94-9792-a76e7dd346a4",
-    "description": "string",
-    "manufacturer": "PredictWeater",
-    "url": "string",
-    "commands": [
-      {
-        "comand": "get_rainfall_intensity",
-        "parameters": [
-          {
-            "name": "string",
-            "description": "string"
-          }
-        ]
-      }
-    ],
-    "rainFallIntensities": [
-      {
-        "dateTime": "2024-04-05T23:31:07.401Z",
-        "volumetry": 0
-      }
-    ]
-  },
-  {
-    "identifier": "df71a032-a90d-495f-9934-94a52b30799d",
-    "description": "string",
-    "manufacturer": "PredictWeater",
-    "url": "string",
-    "commands": [
-      {
-        "comand": "get_rainfall_intensity",
-        "parameters": [
-          {
-            "name": "string",
-            "description": "string"
-          }
-        ]
-      }
-    ],
-    "rainFallIntensities": [
-      {
-        "dateTime": "2024-04-05T23:31:07.401Z",
-        "volumetry": 0
-      }
-    ]
-  }
-]
+![CIoTD_GetAllSuccess](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_GetAllSuccess.png)
 
 **POST /Device**: utilizado para cadastrar um novo dispositivo na plataforma considerando as regras descritas no requisito funcional 2 da documentação.
 Tomei a liberdade de assumir para o campo identifier o valor GUID (Globally Unique Identifier).
@@ -187,41 +109,15 @@ Considerei os seguintes códigos de status nesse endpoint:
 
 Exemplo de resposta para cadastro realizado com sucesso:
 
-{
-  "identifier": "fa421bbc-e19c-418c-a9db-429584abf96d",
-  "description": "string",
-  "manufacturer": "PredictWeater",
-  "url": "string",
-  "commands": [
-    {
-      "comand": "get_rainfall_intensity",
-      "parameters": [
-        {
-          "name": "string",
-          "description": "string"
-        }
-      ]
-    }
-  ],
-  "rainFallIntensities": [
-    {
-      "dateTime": "2024-04-05T23:31:07.401Z",
-      "volumetry": 0
-    }
-  ]
-}
+![CIoTD_PostSuccess](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_PostSuccess.png)
 
 Exemplo de resposta para a tentativa de cadastro do novo dispositivo com fabricante diferente de PredictWeater:
 
-{
-  "message": "Fabricante diferente de PredictWeater não permitido"
-}
+![CIoTD_PostErrorManufacturer](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_PostErrorManufacturer.png)
 
 Exemplo de resposta para a tentativa de cadastro do novo dispositivo com comando diferente de get_rainfall_intensity:
 
-{
-  "message": "Comando diferente de get_rainfall_intensity não permitido"
-}
+![CIoTD_PostErrorCommand](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_PostErrorCommand.png)
 
 **GET /Device/{id}**: utilizado para listar o dispositivo cadastrado na plataforma de acordo com o id informado.
 Considerei os seguintes códigos de status nesse endpoint:
@@ -233,46 +129,11 @@ Considerei os seguintes códigos de status nesse endpoint:
 
 Neste exemplo listei a resposta para a busca do dispositivo cadastrado com id "88afc829-777e-4331-b961-c5d517acf5dc":
 
-{
-  "identifier": "88afc829-777e-4331-b961-c5d517acf5dc",
-  "description": "string",
-  "manufacturer": "PredictWeater",
-  "url": "string",
-  "commands": [
-    {
-      "comand": "get_rainfall_intensity",
-      "parameters": [
-        {
-          "name": "string",
-          "description": "string"
-        }
-      ]
-    }
-  ],
-  "rainFallIntensities": [
-    {
-      "dateTime": "2024-04-04T19:22:08.224Z",
-      "volumetry": 0
-    },
-    {
-      "dateTime": "2024-04-04T21:14:06.9265477-03:00",
-      "volumetry": 310.53
-    },
-    {
-      "dateTime": "2024-04-05T18:44:46.4492289-03:00",
-      "volumetry": 758.74
-    }
-  ]
-}
+![CIoTD_GetByIdSuccess](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_GetByIdSuccess.png)
 
 E este é um exemplo da resposta para a busca de um id não encontrado:
 
-{
-  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
-  "title": "Not Found",
-  "status": 404,
-  "traceId": "00-c49e979e5facf6100a05b8af6e565f18-23fde627d0e0bf73-00"
-}
+![CIoTD_GetByIdError](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_GetByIdError.png)
 
 **PUT /Device/{id}**: utilizado para atualizar os dados de um dispositivo.
 Considerei os seguintes códigos de status nesse endpoint:
@@ -284,29 +145,7 @@ Considerei os seguintes códigos de status nesse endpoint:
 
 Neste exemplo listei a resposta para o dispositivo id "88afc829-777e-4331-b961-c5d517acf5dc" após a alteração de sua descrição.
 
-{
-  "identifier": "88afc829-777e-4331-b961-c5d517acf5dc",
-  "description": "testando o a atualização dos dados deste dispositivo",
-  "manufacturer": "PredictWeater",
-  "url": "string",
-  "commands": [
-    {
-      "comand": "get_rainfall_intensity",
-      "parameters": [
-        {
-          "name": "string",
-          "description": "string"
-        }
-      ]
-    }
-  ],
-  "rainFallIntensities": [
-    {
-      "dateTime": "2024-04-05T23:55:34.29Z",
-      "volumetry": 0
-    }
-  ]
-}
+![CIoTD_PutSuccess](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_PutSuccess.png)
 
 **DELETE /Device/{id}**: utilizado para remover um dispositivo.
 Considerei os seguintes códigos de status nesse endpoint:
@@ -318,29 +157,7 @@ Considerei os seguintes códigos de status nesse endpoint:
 
 Neste exemplo listei a resposta para o dispositivo id "fa421bbc-e19c-418c-a9db-429584abf96d" removido com sucesso.
 
-{
-  "identifier": "fa421bbc-e19c-418c-a9db-429584abf96d",
-  "description": "string",
-  "manufacturer": "PredictWeater",
-  "url": "string",
-  "commands": [
-    {
-      "comand": "get_rainfall_intensity",
-      "parameters": [
-        {
-          "name": "string",
-          "description": "string"
-        }
-      ]
-    }
-  ],
-  "rainFallIntensities": [
-    {
-      "dateTime": "2024-04-05T23:31:07.401Z",
-      "volumetry": 0
-    }
-  ]
-}
+![CIoTD_DeleteSuccess](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_DeleteSuccess.png)
 
 **GET /Device/{id},{command}**: utilizado para recuperar a volumetria de chuva por dispositivo.
 Tomei a liberdade de simular o resultado da comunicação telnet solicitada no requisito 4 através de uma função que gera números aleatórios para a medição da volumetria de chuva e inclui a data e hora da medição. Considerei os seguintes códigos de status nesse endpoint:
@@ -352,50 +169,18 @@ Tomei a liberdade de simular o resultado da comunicação telnet solicitada no r
 
 Neste exemplo listei a resposta para a volumetria do dispositivo id "df71a032-a90d-495f-9934-94a52b30799d" realizada com sucesso.
 
-{
-  "identifier": "df71a032-a90d-495f-9934-94a52b30799d",
-  "description": "string",
-  "manufacturer": "PredictWeater",
-  "url": "string",
-  "commands": [
-    {
-      "comand": "get_rainfall_intensity",
-      "parameters": [
-        {
-          "name": "string",
-          "description": "string"
-        }
-      ]
-    }
-  ],
-  "rainFallIntensities": [
-    {
-      "dateTime": "2024-04-05T23:31:07.401Z",
-      "volumetry": 0
-    },
-    {
-      "dateTime": "2024-04-05T21:14:28.8101827-03:00",
-      "volumetry": 381.06
-    }
-  ]
-}
+![CIoTD_GetVolumetrySuccess](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_GetVolumetrySuccess.png)
 
 Este é um exemplo de resposta para a tentativa de listar a volumetria do dispositivo com comando diferente de get_rainfall_intensity:
 
-{
-  "message": "Comando diferente de get_rainfall_intensity não permitido"
-}
+![CIoTD_GetVolumetryError](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_GetVolumetryError.png)
 
 **POST /Login/login**: utilizado para gerar o token de autenticação na API.
 Para atender o requisito 1 da documentação, implementei um recurso para autenticação via token. 
 Na parte de sugestões para melhorias futuras eu descrevo melhor ações que podem ser aplicadas nesse recurso.
 Neste exemplo listei a resposta para a tentativa de uso de um endpoint sem estar autenticado:
 
-Error: Unauthorized
-content-length: 0 
-date: Sat,06 Apr 2024 00:20:26 GMT 
-server: Kestrel 
-www-authenticate: Bearer 
+![CIoTD_Unauthorized](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_Unauthorized.png)
 
 ## 📌 Testes unitários
 
@@ -403,7 +188,7 @@ Implementei na solução um projeto com uma classe dedicada para testes unitári
 
 Utilizei de forma bem simples ASP.NET Core MVC Testing em conjunto com XUnit.
 
-![TestesUnitarios](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_CasosDeTeste.png)
+![CIoTD_CasosDeTeste](https://github.com/itfrancisconeto/imagens/blob/main/CIoTD_CasosDeTeste.png)
 
 ## 🖇️ Sugestões para melhorias futuras desta API
 
@@ -411,7 +196,7 @@ Utilizei de forma bem simples ASP.NET Core MVC Testing em conjunto com XUnit.
 
 - Na parte que trata a recuperação da volumetria de chuva do dispositivo, futuramente pode ser incluída a recuperação dessa volumetria
 a partir de um serviço de mensageria preparado para receber dados de vários sensores separados em tópicos utilizando a arquitetura Publish/Subscribe.
-Outro ponto de melhoria nesse tópico seria a implementação da utilização do protocolo MQTT na comunicação com os dispositivos para redução do tamanho do payload de dados trafegados e otimização da utilização em conexões de baixa qualidade.
+Outro ponto de melhoria seria a implementação do protocolo MQTT na comunicação com os dispositivos para redução do tamanho do payload de dados trafegados otimizando a utilização em conexões de baixa qualidade.
 
 - Na parte que trata a geração do token de autenticação, pode ser incluída futuramente a recuperação do usuário e senha
 a partir de um banco de dados para fazer uma checagem prévia se usuário é válido ou não para a geração do token.
@@ -423,8 +208,21 @@ uma solução de banco de dados NoSQL para ter mais flexibilidade e não depende
 - Nesta API fiz a utilização do design pattern Repository para criar uma interface de interação com os dados persistidos no arquivo JSON. 
 Na medida em que a complexidade desta API aumentar outros design patterns podem ser adotados como, por exemplo, o padrão
 Facade para fornecer uma interface única e simplificada de acesso às funcionalidades de um ou mais subsistemas de modo a ocultar a complexidade.
+No caso da implementação da arquitetura Publish/Subscribe, o padrão Observer pode ser implementado como uma boa prática de desenvolvimento.
 
+## 🎁️ Agradecimento
 
+Caro Recrutador,
+
+Gostaria de expressar minha sincera gratidão pela oportunidade de participar do processo seletivo para a posição de Desenvolvedor Backend. 
+Foi um privilégio poder demonstrar minhas habilidades e experiências através desse desafio e aprender mais sobre a sua empresa durante este processo.
+
+Estou verdadeiramente entusiasmado com a possibilidade de contribuir para a equipe e o sucesso contínuo da empresa. 
+Agradeço novamente pela consideração e espero ter a chance de trabalharmos juntos no futuro.
+
+Atenciosamente,
+
+Francisco Dias
 
 
 
